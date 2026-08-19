@@ -23,32 +23,31 @@ A RAG pipeline that chunks a document, embeds the chunks with OpenAI, stores the
 
 2. Create virtual environment:
 
-    **`python -m venv <name>`**
+`python -m venv <name>`
+
 3. Install dependencies
 
-    `pip install -r requirements.txt`
+`pip install -r requirements.txt`
 
 4. Start Postgres + pgvector with Docker:
 
-        ```bash
-        docker run --name pg-vector \
-        -e POSTGRES_USER=<user_name> \
-        -e POSTGRES_PASSWORD=<your_password> \
-        -e POSTGRES_DB=<db_name> \
-        -p 5432:5432 \
-        -d pgvector/pgvector:pg16
-        ```
+```bash
+docker run --name pg-vector \
+   -e POSTGRES_USER=<user_name> \
+   -e POSTGRES_PASSWORD=<your_password> \
+   -e POSTGRES_DB=<db_name> \
+   -p 5432:5432 \
+   -d pgvector/pgvector:pg16
+```
 5. Create tables
 
-        ```bash 
-        psql -h localhost -U <user_name> -d <db_name> -f schema.sql
-        ```
+```bash 
+psql -h localhost -U <user_name> -d <db_name> -f schema.sql
+```
 
 6. Create `.env` file(see `.env.example`)
 
 7. Run the app
-    ```bash
-    python main.py
-    ```
-
-**Note:** Uncomment the `add_doc` and `ingest` lines in main.py to load `data/computer_help.md` on the first run then comment them to query.
+```bash
+python main.py
+```
