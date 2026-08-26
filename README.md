@@ -11,7 +11,7 @@ A RAG pipeline that chunks a document, embeds the chunks with OpenAI, stores the
 5. **Generate** an answer using only those chunks
 
 ## I used these stacks:
-- Python 3.13
+- Python 3.12
 - Postgres/pgvector
 - OpenAI API
   - Embedding: `text-embedding-3-small`
@@ -47,7 +47,19 @@ psql -h localhost -U <user_name> -d <db_name> -f schema.sql
 
 6. Create `.env` file(see `.env.example`)
 
-7. Run the app
+7. Ingest a document
 ```bash
-python main.py
+python main.py --ingest
+```
+8. Run the API
+```bash
+uvicorn api:app --reload
+```
+Then open http://127.0.0.1:8000/docs
+
+### Or with Docker
+Skip steps 2, 3 and 8:
+```bash
+docker build -t rag-app .
+docker run -p 8000:8000 --env-file .env rag-app
 ```
