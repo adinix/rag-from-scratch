@@ -1,4 +1,3 @@
-
 def sort_key(r):
     return (r[2], r[1])
 
@@ -26,12 +25,14 @@ class Service:
         good.sort(key=sort_key)
         return good
     
-    def make_str(self, result, question):
-        if not result:
-            return "I dont have anything on that"
-        else:
+    def make_str(self, result):
             string_list = []
             for i in range(len(result)):
                 string_list.append(f"[{i+1}] {result[i][0]}")
-            ai_ans = self.generator.answer("\n\n".join(string_list),question)
-            return ai_ans
+            return "\n\n".join(string_list)
+            
+    def answer(self, question, limit, threshold):
+        result = self.embed_quest(question, limit, threshold)
+        if result:
+            return self.generator.answer(self.make_str(result), question)
+        return "I don't have anything on that"

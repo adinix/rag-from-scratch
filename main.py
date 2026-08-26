@@ -33,6 +33,4 @@ if args.ingest:
     print("Document ingested.")
 else:
     question = input("Enter your question: ")
-    result = s.embed_quest(question, limit, threshold)
-    ai_ans = s.make_str(result, question)
-    print(ai_ans)
+    print(s.answer(question, limit, threshold))
