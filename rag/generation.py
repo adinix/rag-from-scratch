@@ -13,4 +13,4 @@ class Generator:
                 {"role": "user", "content": f"Documents: \n{context}\n\n{question}"}
             ],
         )
-        return response.output_text
+        return response.output_text, response.usage

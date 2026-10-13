@@ -8,8 +8,7 @@ class Embedding:
             input=texts,
             model=self.model
         )
-
         embeddings = []
         for item in response.data:
             embeddings.append(item.embedding)
-        return embeddings
+        return embeddings, response.usage
