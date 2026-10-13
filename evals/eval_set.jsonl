@@ -1,0 +1,4 @@
+{"question": "my laptop shows no lights and no fan","must_contain": "battery"}
+{"question": "the fan runs but the screen stays black","must_contain": "backlight"}
+{"question": "my keyboard stopped working","must_contain": "external"}
+{"question": "How do I bake sourdough bread?", "must_contain": "don't have anything"}
