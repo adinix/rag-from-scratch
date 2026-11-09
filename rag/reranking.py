@@ -23,6 +23,6 @@ class Reranker:
                     "role": "user", 
                     "content": f"<documents>\n{context}\n</documents>\n\n<question>\n{question}\n</question>",
                 },
-            ]  
+            ]
         )
         return response.output_parsed, response.usage
