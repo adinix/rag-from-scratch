@@ -4,6 +4,7 @@ from models import QuestionIn
 from openai import OpenAIError
 from rag.helper import request_cost
 from time import perf_counter
+from agent import ask_agent
 
 limit = 3
 threshold = 0.7
@@ -40,3 +41,9 @@ def ask(payload: QuestionIn):
         f"{payload.question}, cost:{final_cost:.8f}, chunks: {len(selected_chunks)}, elapsed_seconds: {elapsed:.3f}, embedding_tokens: {embedding_usage.prompt_tokens}, generation_input_tokens: {generation_input_tokens}, generation_output_tokens: {generation_output_tokens}, reranking_input_tokens: {ranking_input_tokens}, reranking_output_tokens: {ranking_output_tokens}"
         )
     return {"answer":answer, "cost": final_cost}
+
+
+@app.post("/agent")
+def agent(payload: QuestionIn):
+    answer = ask_agent(payload.question)
+    return {"answer": answer}
