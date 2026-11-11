@@ -29,5 +29,5 @@ with open("evals/eval_set.jsonl") as file:
             passed += 1
         if judge_result.faithful:
             faithful += 1
-        print(f"{item['question']}, | contains: {item['must_contain'].lower() in answer.lower()}, | faithful: {judge_result.faithful}, | cost_usd: {final_cost:.8f}")
+        print(f"{item['question']}, | contains: {item['must_contain'].lower() in answer.lower()}, | faithful: {judge_result.faithful}, | reason: {judge_result.reason}, | cost_usd: {final_cost:.8f}")
     print(f"must_contain: {passed}/{total}  faithful: {faithful}/{total}")

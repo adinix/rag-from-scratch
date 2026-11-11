@@ -9,7 +9,7 @@ class Generator:
             model = self.model,
             reasoning = {"effort": "low"},
             input = [
-                {"role": "developer", "content": "answer based only on the documents provided, if the answer is not in them, say you dont know. Never use outside knowledge. Cite the source number in brackets, like [1], after each fact you use."},
+                {"role": "developer", "content": "Answer using only the documents. If the answer isn't there, say you don't know. Don't use your own knowledge or add your own conclusions. Keep every condition exactly as the document says it. Cite the source after each fact, like [1]."},
                 {"role": "user", "content": f"Documents: \n{context}\n\n{question}"}
             ],
         )
