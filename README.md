@@ -7,11 +7,45 @@ A RAG pipeline that chunks a document, embeds the chunks with OpenAI, stores the
 1. **Chunk** the document
 2. **Embed** each chunk with OpenAI
 3. **Store** chunks and embeddings in Postgres `pgvector`
-4. **Retrieve** the closest chunks by cosine distance
-5. **Generate** an answer using only those chunks
+4. **Retrieve** the 10 closest chunks by cosine distance
+5. **Rerank** them with the model and keep the best 3
+6. **Generate** an answer using only those chunks, with citation like [1]
 
+## Two ways to ask 
+- `POST /ask` - always searches the user's words once, reranks, then answers.
+- `POST /agent` -  agentic RAG: the model decides to search, rewrites the question for a better search query, and can search several times.
+
+## Evaluation
+I test the answers with a small eval set (`evals/eval_set.jsonl`): questions with a word the answer must contain.
+
+Each answer is checked two ways:
+- **must_contain**: Does the answer include the key fact I expected?
+- **faithful**: A second model reads the answer and the source chunck, and checks that answer only says things the chunks actually say.
+
+Result: `must_contain:4/4, faithful: 4/4`
+
+Run it:
+```bash
+python -m evals.run_eval
+```
+## Example
+
+Request:
+```bash
+curl -X POST http://127.0.0.1:8000/ask \
+-H "Content-Type: application/json" \
+-d '{"question": "why won'\''t my laptop turn on?"}'
+```
+
+Response:
+```json
+{
+  "answer": "If pressing the power button causes no lights, fan noise, or sound, the computer may not be receiving power. [1] Test the wall socket with another device. [1] ...",
+  "cost": 0.0111
+}
+```
 ## I used these stacks:
-- Python 3.12
+- Python 3.13
 - Postgres/pgvector
 - OpenAI API
   - Embedding: `text-embedding-3-small`
